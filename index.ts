@@ -37,7 +37,7 @@ export function restartAppIfNecessary(appId: number) {
     return nativeBinding.restartAppIfNecessary(appId)
 }
 
-export function electronEnableSteamOverlay(disableEachFrameInvalidation: boolean) {
+export function electronEnableSteamOverlay(disableEachFrameInvalidation?: boolean) {
     const electron = require('electron')
     if (!electron) {
         throw new Error('Electron module not found')

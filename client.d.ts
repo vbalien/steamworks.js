@@ -45,7 +45,7 @@ export namespace auth {
   }
 }
 export namespace callback {
-  export const enum SteamCallback {
+  export enum SteamCallback {
     PersonaStateChange = 0,
     SteamServersConnected = 1,
     SteamServersDisconnected = 2,
@@ -90,19 +90,23 @@ export namespace input {
 export namespace localplayer {
   export function getSteamId(): PlayerSteamId
   export function getName(): string
+  export function getSmallAvatar(): Buffer | null
+  export function getMediumAvatar(): Buffer | null
+  export function getLargeAvatar(): Buffer | null
   export function getLevel(): number
   /** @returns the 2 digit ISO 3166-1-alpha-2 format country code which client is running in, e.g. "US" or "UK". */
   export function getIpCountry(): string
   export function setRichPresence(key: string, value?: string | undefined | null): void
 }
 export namespace matchmaking {
-  export const enum LobbyType {
+  export enum LobbyType {
     Private = 0,
     FriendsOnly = 1,
     Public = 2,
     Invisible = 3
   }
   export function createLobby(lobbyType: LobbyType, maxMembers: number): Promise<Lobby>
+  export function getLobbyById(lobbyId: bigint): Promise<Lobby>
   export function joinLobby(lobbyId: bigint): Promise<Lobby>
   export function getLobbies(): Promise<Array<Lobby>>
   export class Lobby {
@@ -134,7 +138,7 @@ export namespace networking {
     steamId: PlayerSteamId
   }
   /** The method used to send a packet */
-  export const enum SendType {
+  export enum SendType {
     /**
      * Send the packet directly over udp.
      *
@@ -164,7 +168,7 @@ export namespace networking {
   export function acceptP2PSession(steamId64: bigint): void
 }
 export namespace overlay {
-  export const enum Dialog {
+  export enum Dialog {
     Friends = 0,
     Community = 1,
     Players = 2,
@@ -173,7 +177,7 @@ export namespace overlay {
     Stats = 5,
     Achievements = 6
   }
-  export const enum StoreFlag {
+  export enum StoreFlag {
     None = 0,
     AddToCart = 1,
     AddToCartAndShow = 2
@@ -200,7 +204,7 @@ export namespace workshop {
     itemId: bigint
     needsToAcceptAgreement: boolean
   }
-  export const enum UgcItemVisibility {
+  export enum UgcItemVisibility {
     Public = 0,
     FriendsOnly = 1,
     Private = 2,
@@ -224,7 +228,7 @@ export namespace workshop {
     current: bigint
     total: bigint
   }
-  export const enum UpdateStatus {
+  export enum UpdateStatus {
     Invalid = 0,
     PreparingConfig = 1,
     PreparingContent = 2,

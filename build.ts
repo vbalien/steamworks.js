@@ -47,6 +47,7 @@ const params = [
     'build',
     '--platform',
     '--no-dts-header',
+    '--no-const-enum',
     '--js',
     'false',
     '--dts',

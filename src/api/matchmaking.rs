@@ -160,6 +160,14 @@ pub mod matchmaking {
     }
 
     #[napi]
+    pub async fn get_lobby_by_id(lobby_id: BigInt) -> Lobby {
+        Lobby {
+            id: lobby_id.clone(),
+            lobby_id: LobbyId::from_raw(lobby_id.get_u64().1),
+        }
+    }
+
+    #[napi]
     pub async fn join_lobby(lobby_id: BigInt) -> Result<Lobby, Error> {
         let client = crate::client::get_client();
 

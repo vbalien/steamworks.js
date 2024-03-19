@@ -22,6 +22,8 @@ impl PlayerSteamId {
 
 #[napi]
 pub mod localplayer {
+    use napi::bindgen_prelude::Buffer;
+
     use super::PlayerSteamId;
 
     #[napi]
@@ -35,6 +37,30 @@ pub mod localplayer {
     pub fn get_name() -> String {
         let client = crate::client::get_client();
         client.friends().name()
+    }
+
+    #[napi]
+    pub fn get_small_avatar() -> Option<Buffer> {
+        let client = crate::client::get_client();
+        let steam_id = client.user().steam_id();
+        let avatar_buf = client.friends().get_friend(steam_id).small_avatar();
+        avatar_buf.map(|buf| buf.clone().into())
+    }
+
+    #[napi]
+    pub fn get_medium_avatar() -> Option<Buffer> {
+        let client = crate::client::get_client();
+        let steam_id = client.user().steam_id();
+        let avatar_buf = client.friends().get_friend(steam_id).medium_avatar();
+        avatar_buf.map(|buf| buf.clone().into())
+    }
+
+    #[napi]
+    pub fn get_large_avatar() -> Option<Buffer> {
+        let client = crate::client::get_client();
+        let steam_id = client.user().steam_id();
+        let avatar_buf = client.friends().get_friend(steam_id).large_avatar();
+        avatar_buf.map(|buf| buf.clone().into())
     }
 
     #[napi]
