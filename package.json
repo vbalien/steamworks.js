@@ -1,6 +1,6 @@
 {
     "name": "@vbalien/steamworks.js",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "main": "index.js",
     "types": "index.d.ts",
     "napi": {
@@ -26,9 +26,7 @@
         "electron": "^29.0.0",
         "rimraf": "5.0.1",
         "tsx": "^4.7.1",
-        "typescript": "5.1.6"
-    },
-    "dependencies": {
+        "typescript": "5.1.6",
         "@types/node": "*"
     },
     "engines": {
