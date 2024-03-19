@@ -61,3 +61,20 @@ export function electronEnableSteamOverlay(disableEachFrameInvalidation?: boolea
         electron.app.on('browser-window-created', (_, bw) => attachFrameInvalidator(bw))
     }
 }
+
+const { achievement, apps, auth, callback, cloud, input, localplayer, matchmaking, networking, overlay, stats, utils, workshop } =
+    nativeBinding!
+
+module.exports.achievement = achievement
+module.exports.apps = apps
+module.exports.auth = auth
+module.exports.callback = callback
+module.exports.cloud = cloud
+module.exports.input = input
+module.exports.localplayer = localplayer
+module.exports.matchmaking = matchmaking
+module.exports.networking = networking
+module.exports.overlay = overlay
+module.exports.stats = stats
+module.exports.utils = utils
+module.exports.workshop = workshop
