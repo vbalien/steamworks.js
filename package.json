@@ -1,5 +1,5 @@
 {
-    "name": "steamworks.js",
+    "name": "@vbalien/steamworks.js",
     "version": "0.3.1",
     "main": "index.js",
     "types": "index.d.ts",
@@ -22,10 +22,11 @@
     ],
     "license": "MIT",
     "devDependencies": {
-        "@napi-rs/cli": "2.16.2",
+        "@napi-rs/cli": "^2.18.0",
+        "electron": "^29.0.0",
         "rimraf": "5.0.1",
-        "typescript": "5.1.6",
-        "electron": "24.2.0"
+        "tsx": "^4.7.1",
+        "typescript": "5.1.6"
     },
     "dependencies": {
         "@types/node": "*"
@@ -34,14 +35,18 @@
         "node": ">= 14"
     },
     "scripts": {
-        "build": "npm run types && node build --release",
-        "build:debug": "node build",
+        "build": "npm run types && tsx build.ts --release",
+        "build:debug": "tsx build.ts",
         "prune": "rimraf dist target client.d.ts",
         "format": "cargo clippy --fix --allow-staged && cargo fmt",
-        "types": "tsc index.js --allowJs --declaration --emitDeclarationOnly"
+        "types": "tsc index.ts --allowJs --declaration"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/ceifa/steamworks.js"
-    }
+        "url": "https://github.com/vbalien/steamworks.js"
+    },
+    "peerDependencies": {
+        "electron": "^29.0.0"
+    },
+    "packageManager": "npm@10.5.0+sha256.17ca6e08e7633b624e8f870db81a78f46afe119de62bcaf0a7407574139198fc"
 }

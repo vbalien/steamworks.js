@@ -1,8 +1,10 @@
+import type { BrowserWindow } from 'electron'
+import * as client from './client'
+
 const { platform, arch } = process
 
-/** @typedef {typeof import('./client.d')} Client */
-/** @type {Client} */
-let nativeBinding = undefined
+export type Client = typeof client
+let nativeBinding: Client
 
 if (platform === 'win32' && arch === 'x64') {
     nativeBinding = require('./dist/win64/steamworksjs.win32-x64-msvc.node')
@@ -18,14 +20,9 @@ if (platform === 'win32' && arch === 'x64') {
     throw new Error(`Unsupported OS: ${platform}, architecture: ${arch}`)
 }
 
-let runCallbacksInterval = undefined
+let runCallbacksInterval: NodeJS.Timeout
 
-/**
- * Initialize the steam client or throw an error if it fails
- * @param {number} [appId] - App ID of the game to load, if undefined, will search for a steam_appid.txt file
- * @returns {Omit<Client, 'init' | 'runCallbacks'>}
-*/
-module.exports.init = (appId) => {
+export function init(appId?: number) {
     const { init: internalInit, runCallbacks, restartAppIfNecessary, ...api } = nativeBinding
 
     internalInit(appId)
@@ -36,18 +33,11 @@ module.exports.init = (appId) => {
     return api
 }
 
-/**
- * @param {number} appId - App ID of the game to load
- * {@link https://partner.steamgames.com/doc/api/steam_api#SteamAPI_RestartAppIfNecessary}
- * @returns {boolean} 
- */
-module.exports.restartAppIfNecessary = (appId) => nativeBinding.restartAppIfNecessary(appId);
+export function restartAppIfNecessary(appId: number) {
+    return nativeBinding.restartAppIfNecessary(appId)
+}
 
-/**
- * Enable the steam overlay on electron
- * @param {boolean} [disableEachFrameInvalidation] - Should attach a single pixel to be rendered each frame
-*/
-module.exports.electronEnableSteamOverlay = (disableEachFrameInvalidation) => {
+export function electronEnableSteamOverlay(disableEachFrameInvalidation: boolean) {
     const electron = require('electron')
     if (!electron) {
         throw new Error('Electron module not found')
@@ -57,11 +47,10 @@ module.exports.electronEnableSteamOverlay = (disableEachFrameInvalidation) => {
     electron.app.commandLine.appendSwitch('disable-direct-composition')
 
     if (!disableEachFrameInvalidation) {
-        /** @param {electron.BrowserWindow} browserWindow */
-        const attachFrameInvalidator = (browserWindow) => {
-            browserWindow.steamworksRepaintInterval = setInterval(() => {
+        const attachFrameInvalidator = (browserWindow: BrowserWindow) => {
+            const steamworksRepaintInterval = setInterval(() => {
                 if (browserWindow.isDestroyed()) {
-                    clearInterval(browserWindow.steamworksRepaintInterval)
+                    clearInterval(steamworksRepaintInterval)
                 } else if (!browserWindow.webContents.isPainting()) {
                     browserWindow.webContents.invalidate()
                 }
@@ -72,6 +61,3 @@ module.exports.electronEnableSteamOverlay = (disableEachFrameInvalidation) => {
         electron.app.on('browser-window-created', (_, bw) => attachFrameInvalidator(bw))
     }
 }
-
-const SteamCallback = nativeBinding.callback.SteamCallback
-module.exports.SteamCallback = SteamCallback
