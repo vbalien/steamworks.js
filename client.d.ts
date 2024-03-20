@@ -198,6 +198,7 @@ export namespace utils {
   export function getAppId(): number
   export function getServerRealTime(): number
   export function isSteamRunningOnSteamDeck(): boolean
+  export function isOverlayEnabled(): boolean
 }
 export namespace workshop {
   export interface UgcResult {
