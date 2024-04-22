@@ -1,6 +1,6 @@
 {
     "name": "@vbalien/steamworks.js",
-    "version": "0.3.5-alpha.4",
+    "version": "0.3.5-alpha.5",
     "main": "index.js",
     "types": "index.d.ts",
     "napi": {
