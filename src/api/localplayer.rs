@@ -2,7 +2,7 @@ use napi::bindgen_prelude::BigInt;
 use napi_derive::napi;
 use steamworks::SteamId;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 #[napi(object)]
 pub struct PlayerSteamId {
     pub steam_id64: BigInt,

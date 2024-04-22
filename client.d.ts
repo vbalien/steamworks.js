@@ -71,7 +71,21 @@ export namespace cloud {
   export function fileExists(name: string): boolean
 }
 export namespace friends {
-  export function getFriends(flags: number): Promise<Array<PlayerSteamId>>
+  export enum FriendState {
+    Offline = 0,
+    Online = 1,
+    Busy = 2,
+    Away = 3,
+    Snooze = 4,
+    LookingToTrade = 5,
+    LookingToPlay = 6
+  }
+  export function getFriends(flags: number): Array<Friend>
+  export class Friend {
+    id(): PlayerSteamId
+    name(): string
+    state(): FriendState
+  }
 }
 export namespace input {
   export interface AnalogActionVector {
