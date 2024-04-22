@@ -70,6 +70,9 @@ export namespace cloud {
   export function deleteFile(name: string): boolean
   export function fileExists(name: string): boolean
 }
+export namespace friends {
+  export function getFriends(flags: number): Promise<Array<PlayerSteamId>>
+}
 export namespace input {
   export interface AnalogActionVector {
     x: number
