@@ -62,7 +62,7 @@ export function electronEnableSteamOverlay(disableEachFrameInvalidation?: boolea
     }
 }
 
-const { achievement, apps, auth, callback, cloud, input, localplayer, matchmaking, networking, overlay, stats, utils, workshop } =
+const { achievement, apps, auth, callback, cloud, input, localplayer, matchmaking, networking, overlay, stats, utils, workshop, friends } =
     nativeBinding!
 
 export { achievement }
@@ -78,3 +78,4 @@ export { overlay }
 export { stats }
 export { utils }
 export { workshop }
+export { friends }
