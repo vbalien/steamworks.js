@@ -6,6 +6,14 @@ export interface PlayerSteamId {
   steamId32: string
   accountId: number
 }
+export class Friend {
+  id(): PlayerSteamId
+  name(): string
+  state(): friends.FriendState
+  getSmallAvatar(): Buffer | null
+  getMediumAvatar(): Buffer | null
+  getLargeAvatar(): Buffer | null
+}
 export namespace achievement {
   export function activate(achievement: string): boolean
   export function isActivated(achievement: string): boolean
@@ -81,11 +89,6 @@ export namespace friends {
     LookingToPlay = 6
   }
   export function getFriends(flags: number): Array<Friend>
-  export class Friend {
-    id(): PlayerSteamId
-    name(): string
-    state(): FriendState
-  }
 }
 export namespace input {
   export interface AnalogActionVector {
@@ -133,7 +136,7 @@ export namespace matchmaking {
     openInviteDialog(): void
     getMemberCount(): bigint
     getMemberLimit(): bigint | null
-    getMembers(): Array<PlayerSteamId>
+    getMembers(): Array<Friend>
     getOwner(): PlayerSteamId
     setJoinable(joinable: boolean): boolean
     getData(key: string): string | null
