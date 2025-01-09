@@ -1,6 +1,6 @@
 {
     "name": "@vbalien/steamworks.js",
-    "version": "0.3.5-alpha.17",
+    "version": "0.3.5-alpha.18",
     "main": "index.js",
     "types": "index.d.ts",
     "napi": {
@@ -44,7 +44,7 @@
         "url": "https://github.com/vbalien/steamworks.js"
     },
     "peerDependencies": {
-        "electron": "^31.0.0"
+        "electron": "*"
     },
     "packageManager": "npm@10.5.0+sha256.17ca6e08e7633b624e8f870db81a78f46afe119de62bcaf0a7407574139198fc"
 }
